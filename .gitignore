@@ -1,5 +1,6 @@
 # Python
 backend/venv/
+frontend/.venv/
 backend/__pycache__/
 *.pyc
 
@@ -8,6 +9,7 @@ backend/.env
 
 # Node
 frontend/node_modules/
+backend/package-lock.json
 
 # Build
 frontend/dist/

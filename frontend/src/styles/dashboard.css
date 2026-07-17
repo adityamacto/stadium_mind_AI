@@ -1,0 +1,149 @@
+body{
+    margin:0;
+    background:#111827;
+    font-family:Arial;
+    color:white;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 40px;
+    background:#1f2937;
+    align-items:center;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.live-dot{
+    width:12px;
+    height:12px;
+    background:#22c55e;
+    border-radius:50%;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.card{
+    background:#1f2937;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+.card h3{
+    margin:0;
+    color:#9ca3af;
+}
+
+.card h2{
+    margin-top:15px;
+    font-size:2rem;
+}
+
+.recommendation{
+    margin:30px;
+    padding:25px;
+    background:#1f2937;
+    border-radius:12px;
+}
+
+textarea {
+    width: 100%;
+    background: #111827;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: none;
+    resize: vertical;
+    font-size: 15px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+pre {
+    white-space: pre-wrap;
+    margin-top: 20px;
+    background: #111827;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.incident-result{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.incident-card{
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:10px;
+    padding:15px;
+}
+
+.incident-card h3{
+    color:#60a5fa;
+    margin-bottom:8px;
+}
+
+.incident-card p{
+    margin:0;
+}
+
+.language-select{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    background:#111827;
+    color:white;
+    border-radius:8px;
+    border:1px solid #374151;
+    margin-bottom:15px;
+}
+
+.language-select option{
+    background:#111827;
+    color:white;
+}
+
+.fan-answer{
+    margin-top:20px;
+    background:#111827;
+    padding:20px;
+    border-radius:10px;
+    border:1px solid #374151;
+}
+
+.fan-answer h3{
+    margin-top:0;
+    color:#60a5fa;
+}
+
+.fan-answer p{
+    line-height:1.6;
+}
