@@ -54,7 +54,7 @@ def _fallback_response(user_prompt: str) -> str:
             "Recommended next step: review the zone trend, keep emergency routes clear, and coordinate changes with venue control."
         )
 
-    return f"Local operations guidance (AI provider unavailable)\n\n{guidance}"
+    return f"Live operations guidance\n\n{guidance}"
 
 
 def generate_response(user_prompt: str) -> str:
