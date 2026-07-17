@@ -31,9 +31,10 @@ export default function AnnouncementGenerator() {
         <span>Comms</span>
         <h2>AI Announcement Generator</h2>
       </div>
-      <textarea rows="5" placeholder="Heavy crowd near Gate 2..." value={event} onChange={(event) => setEvent(event.target.value)} />
-      <button onClick={generate} disabled={loading}>{loading ? "Generating..." : "Generate"}</button>
-      {answer && <pre>{answer}</pre>}
+      <label className="sr-only" htmlFor="announcement-event">Describe the event for the announcement</label>
+      <textarea id="announcement-event" rows="5" placeholder="Heavy crowd near Gate 2..." value={event} onChange={(event) => setEvent(event.target.value)} />
+      <button type="button" onClick={generate} disabled={loading}>{loading ? "Generating..." : "Generate"}</button>
+      {answer && <pre aria-live="polite">{answer}</pre>}
     </section>
   );
 }

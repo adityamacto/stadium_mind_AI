@@ -10,6 +10,10 @@ router = APIRouter()
 def announcement(request: AnnouncementRequest):
 
     prompt = f"""
+Generate clear, calm, accessible communications for fans, volunteers, and
+venue staff. Avoid unverified details and include an accessibility-friendly
+alternative when the situation affects movement or public transport.
+
 Generate
 
 1 Public Announcement

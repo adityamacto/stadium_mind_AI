@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../services/api";
 
-const actions = ["Stadium Status", "Predict Risks", "Crowd Strategy", "Transport", "Sustainability"];
+const actions = ["Stadium Status", "Predict Risks", "Crowd Strategy", "Transport", "Accessibility", "Multilingual Support", "Sustainability"];
 
 export default function QuickActions() {
   const [result, setResult] = useState("");
@@ -30,10 +30,11 @@ export default function QuickActions() {
       <div className="actions">
         {actions.map((label) => (
           <button
+            type="button"
             className="action-button"
             disabled={loading}
             key={label}
-            onClick={() => run(label === "Stadium Status" ? "Give a complete stadium status report." : `Suggest ${label.toLowerCase()} improvements.`)}
+            onClick={() => run(label === "Stadium Status" ? "Give a complete stadium status report for fans, volunteers, and venue staff." : `Suggest ${label.toLowerCase()} improvements for FIFA World Cup 2026 stadium operations.`)}
           >
             {label}
           </button>

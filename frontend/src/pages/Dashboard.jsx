@@ -53,7 +53,7 @@ export default function Dashboard() {
     return (
       <main className="loading">
         <p>{error}</p>
-        <button onClick={loadDashboard}>Retry</button>
+        <button type="button" onClick={loadDashboard}>Retry</button>
       </main>
     );
   }

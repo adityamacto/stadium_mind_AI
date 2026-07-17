@@ -31,9 +31,10 @@ export default function IncidentAssistant() {
         <span>Safety</span>
         <h2>Incident AI</h2>
       </div>
-      <textarea rows="5" placeholder="Example: Fan collapsed near Gate 3" value={incident} onChange={(event) => setIncident(event.target.value)} />
-      <button onClick={analyze} disabled={loading}>{loading ? "Analyzing..." : "Analyze Incident"}</button>
-      {answer && <pre>{answer}</pre>}
+      <label className="sr-only" htmlFor="incident-details">Describe the stadium incident</label>
+      <textarea id="incident-details" rows="5" placeholder="Example: Fan collapsed near Gate 3" value={incident} onChange={(event) => setIncident(event.target.value)} />
+      <button type="button" onClick={analyze} disabled={loading}>{loading ? "Analyzing..." : "Analyze Incident"}</button>
+      {answer && <pre aria-live="polite">{answer}</pre>}
     </section>
   );
 }

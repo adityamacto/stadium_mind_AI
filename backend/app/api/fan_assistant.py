@@ -16,6 +16,10 @@ Question
 
 {request.question}
 
+Provide practical, concise guidance for a diverse FIFA World Cup audience.
+If relevant, mention step-free access, accessible toilets, quiet areas,
+public transport, and how to request human or multilingual assistance.
+
 Provide
 
 Route

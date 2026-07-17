@@ -6,8 +6,10 @@ export default function Hero() {
         <h1>StadiumMind AI</h1>
         <h2>AI Command Center for Smart Stadium Operations</h2>
         <p>
-          Monitor crowd movement, predict operational risks, assist fans,
-          generate announcements, and make safer decisions in real time.
+          A GenAI operations copilot for FIFA World Cup 2026 venues. Help
+          organizers, volunteers, and fans navigate safely with crowd insight,
+          accessibility guidance, transport intelligence, multilingual support,
+          and real-time decisions.
         </p>
         <div className="hero-metrics" aria-label="Live platform metrics">
           <span><strong>24/7</strong> monitoring</span>

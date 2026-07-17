@@ -31,9 +31,10 @@ export default function FanAssistant() {
         <span>Guest Ops</span>
         <h2>AI Fan Assistant</h2>
       </div>
-      <textarea rows="4" placeholder="Ask anything about the stadium..." value={question} onChange={(event) => setQuestion(event.target.value)} />
-      <button onClick={ask} disabled={loading}>{loading ? "Asking..." : "Ask AI"}</button>
-      {answer && <pre>{answer}</pre>}
+      <label className="sr-only" htmlFor="fan-question">Ask the fan assistant a question</label>
+      <textarea id="fan-question" rows="4" placeholder="Ask about routes, accessibility, transport, facilities, or safety..." value={question} onChange={(event) => setQuestion(event.target.value)} />
+      <button type="button" onClick={ask} disabled={loading}>{loading ? "Asking..." : "Ask AI"}</button>
+      {answer && <pre aria-live="polite">{answer}</pre>}
     </section>
   );
 }
