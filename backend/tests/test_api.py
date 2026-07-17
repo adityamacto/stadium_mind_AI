@@ -11,7 +11,10 @@ client = TestClient(app)
 
 
 def test_health_and_dashboard_contracts():
-    assert client.get("/health").json() == {"status": "healthy"}
+    health = client.get("/health")
+    assert health.json() == {"status": "healthy"}
+    assert health.headers["x-content-type-options"] == "nosniff"
+    assert health.headers["x-frame-options"] == "DENY"
     dashboard = client.get("/dashboard")
     assert dashboard.status_code == 200
     payload = dashboard.json()
@@ -43,3 +46,12 @@ def test_request_validation_is_json():
     response = client.post("/incident", json={"incident": ""})
     assert response.status_code == 422
     assert response.json()["detail"] == "Invalid request data."
+
+
+def test_ai_rate_limit_returns_json(monkeypatch):
+    monkeypatch.setattr(assistant_api, "generate_response", lambda _: "ok")
+    for _ in range(30):
+        assert client.post("/assistant", json={"question": "status"}).status_code == 200
+    response = client.post("/assistant", json={"question": "status"})
+    assert response.status_code == 429
+    assert response.json()["detail"] == "Too many AI requests. Please try again shortly."

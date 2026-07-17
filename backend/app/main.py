@@ -1,9 +1,12 @@
 import os
+import time
+from collections import defaultdict, deque
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.api.dashboard import router as dashboard_router
 from app.api.assistant import router as assistant_router
@@ -35,6 +38,10 @@ if not allowed_origins:
         "https://stadium-mind-ai-zeta.vercel.app",
     ]
 
+allowed_hosts = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host.strip()]
+if allowed_hosts:
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_hosts)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
@@ -42,6 +49,42 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    if request.url.scheme == "https":
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
+
+
+_ai_requests = defaultdict(deque)
+_AI_ROUTES = {"/assistant", "/incident", "/fan", "/announcement"}
+_AI_LIMIT = 30
+_AI_WINDOW_SECONDS = 60
+
+
+@app.middleware("http")
+async def ai_rate_limit(request: Request, call_next):
+    if request.method == "POST" and request.url.path in _AI_ROUTES:
+        now = time.monotonic()
+        client_key = request.client.host if request.client else "unknown"
+        requests = _ai_requests[client_key]
+        while requests and now - requests[0] > _AI_WINDOW_SECONDS:
+            requests.popleft()
+        if len(requests) >= _AI_LIMIT:
+            return JSONResponse(
+                status_code=429,
+                content={"detail": "Too many AI requests. Please try again shortly."},
+                headers={"Retry-After": str(_AI_WINDOW_SECONDS)},
+            )
+        requests.append(now)
+    return await call_next(request)
 
 
 @app.exception_handler(RequestValidationError)
