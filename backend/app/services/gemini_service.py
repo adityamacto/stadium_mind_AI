@@ -1,11 +1,13 @@
 import logging
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
 from app.services.context_builder import build_context
 
-load_dotenv()
+BACKEND_DIR = Path(__file__).resolve().parents[2]
+load_dotenv(BACKEND_DIR / ".env")
 logger = logging.getLogger(__name__)
 
 
@@ -20,7 +22,7 @@ def _fallback_response(user_prompt: str) -> str:
 
 def generate_response(user_prompt: str) -> str:
     """Generate a grounded Gemini response, with a safe local fallback."""
-    api_key = os.getenv("GEMINI_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     if not api_key:
         return _fallback_response(user_prompt)
 
