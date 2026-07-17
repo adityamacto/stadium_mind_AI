@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from app.main import app
+from app.main import _ai_requests, app
 import app.api.assistant as assistant_api
 import app.api.announcements as announcement_api
 import app.api.fan_assistant as fan_api
@@ -50,6 +50,7 @@ def test_request_validation_is_json():
 
 def test_ai_rate_limit_returns_json(monkeypatch):
     monkeypatch.setattr(assistant_api, "generate_response", lambda _: "ok")
+    _ai_requests.clear()
     for _ in range(30):
         assert client.post("/assistant", json={"question": "status"}).status_code == 200
     response = client.post("/assistant", json={"question": "status"})
